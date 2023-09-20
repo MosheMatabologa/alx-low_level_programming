@@ -7,21 +7,24 @@
  */
 char *_strcat(char *dest, char *src)
 {
-    int i = 0;
-    int j = 0;
+	/* Find the end of the destination string */
+	int i = 0;
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
 
-    while (dest[i] != '\0')
-    {
-        i++;
-    }
+	/* Concatenate the source string to the destination */
+	int j = 0;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
 
-    while (src[j] != '\0')
-    {
-        dest[i] = src[j];
-        i++;
-        j++;
-    }
+	/* Null-terminate the concatenated string */
+	dest[i] = '\0';
 
-    dest[i] = '\0';
-    return (dest); // Added parentheses around 'dest'
+	return dest;
 }
