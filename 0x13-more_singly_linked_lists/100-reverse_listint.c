@@ -1,20 +1,47 @@
 #include "lists.h"
+#include <stdlib.h>
 
 /**
- * listint_len – I am going to return elements in the list
- * @h: linked list of type listint_t to traverse
+ * reverse_recur - recursively reverses a listint list
  *
- * Return: mynumberber of nodes
+ * @first: node to reverse
+ * @second: node after node to reverse
+ *
+ * Return: void
  */
-size_t listint_len(const listint_t *h)
+listint_t *reverse_recur(listint_t *first, listint_t *second)
 {
-size_t mynumber = 0;
+	listint_t *ptr, *prev = NULL;
 
-while (h)
-{
-mynumber++;
-h = h->next;
+	ptr = first;
+	while (ptr->next != second)
+	{
+		prev = ptr;
+		ptr = ptr->next;
+	}
+
+	if (prev != NULL)
+		prev->next = first;
+	second = first->next;
+	first->next = ptr->next;
+	if (first != ptr && second != first)
+		second = reverse_recur(second, first);
+	ptr->next = second;
+	return (ptr);
 }
 
-return (mynumber);
+/**
+ * reverse_listint - reverses a listint list
+ *
+ * @head: list to reverse
+ *
+ * Return: new head of list
+ */
+listint_t *reverse_listint(listint_t **head)
+{
+	if (head == NULL || *head == NULL)
+		return (NULL);
+
+	*head = reverse_recur(*head, NULL);
+	return (*head);
 }
