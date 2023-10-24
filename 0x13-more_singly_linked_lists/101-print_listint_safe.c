@@ -1,23 +1,55 @@
 #include "lists.h"
+#include <stdio.h>
 
 /**
- * add_nodeint - i am adding the latest node at the beginning of a linked list
- * @head: pointer to the first node in the list
- * @n: data to insert in that latest node
- *
- * Return: pointer to the latest node, or NULL if it fails
+ * find_listint_loop_custom - finds a loop in a linked list
+ * @head: linked list to search
+ * Return: address of node where loop starts/returns, NULL if no loop
  */
-listint_t *add_nodeint(listint_t **head, const int n)
+listint_t *find_listint_loop_custom(listint_t *head)
 {
-listint_t *latest;
+    if (head == NULL)
+        return NULL;
 
-latest = malloc(sizeof(listint_t));
-if (!latest)
-return (NULL);
+    listint_t *slow = head;
+    listint_t *fast = head;
 
-latest->n = n;
-latest->next = *head;
-*head = latest;
+    while (fast != NULL && fast->next != NULL)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
 
-return (latest);
+        if (slow == fast)
+            return slow;
+    }
+
+    return NULL;
+}
+
+/**
+ * print_listint_safe_custom - prints a linked list, even if it has a loop
+ * @head: head of list to print
+ * Return: number of nodes printed
+ */
+size_t print_listint_safe_custom(const listint_t *head)
+{
+    size_t len = 0;
+    int loopDetected = 0;
+    listint_t *loopNode = find_listint_loop_custom((listint_t *)head);
+
+    while (head != NULL)
+    {
+        printf("[%p] %d\n", (void *)head, head->n);
+
+        if (head == loopNode && !loopDetected)
+        {
+            loopDetected = 1;
+            printf("-> [%p] %d\n", (void *)head->next, head->next->n);
+        }
+
+        head = head->next;
+        len++;
+    }
+
+    return len;
 }
