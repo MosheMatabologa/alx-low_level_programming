@@ -1,5 +1,5 @@
 #include "main.h"
-<<<<<<< HEAD
+<< << << < HEAD
 #include <stdio.h>
 
 /**
@@ -25,7 +25,7 @@ char *_strcat(char *dest, char *src)
 	}
 
 	dest[dlen] = '\0';
-=======
+== == == =
 /**
  * _strcat - concatenates two strings,
  * @dest: destination.
@@ -49,6 +49,6 @@ char *_strcat(char *dest, char *src)
 		count++;
 		count2++;
 	}
->>>>>>> parent of 38b0ab1... d
+>> >> >> > parent of 38b0ab1... d
 	return (dest);
 }
